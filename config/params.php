@@ -13,5 +13,6 @@ return [
     'bsVersion' => '5.x',
     'user.passwordResetTokenExpire' => 3600,
     'user.passwordMinLength' => 6,
+    'loading'=>'/images/logo.png',
     
 ];

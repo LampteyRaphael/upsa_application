@@ -137,15 +137,27 @@ img {
 } */
 
 
-.loader {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: url('image/loading5.gif') 50% 50% no-repeat;
-}
+ /* Modern Page Loader Styles */
+        #global-loader {
+            position: fixed;
+            z-index: 9999;
+            background: var(--sidebar-bg);
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #global-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
 
 body{
     /*font-family:'Open Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
@@ -167,9 +179,19 @@ body{
 <body class="hold-transition sidebar-mini">
 
 <?php $this->beginBody() ?>
-    <div id="global-loader">
-        <img src="css/images/loader.svg" class="loader-img" alt="Loader">
+<!-- Professional Page Loader -->
+<div id="global-loader">
+    <div class="loader-container">
+        <div class="loader-spinner"></div>
+        <div class="loader-logo">
+            <img src="<?= Yii::$app->request->baseUrl.Yii::$app->params['loading']; ?>" alt="Logo">
+        </div>
+        <div class="loader-text">Loading Application</div>
+        <div class="loader-progress">
+            <div class="progress-bar"></div>
+        </div>
     </div>
+</div>
 
 <div class="wrapper">
 
@@ -192,9 +214,52 @@ body{
     <!-- Main Footer -->
     <?= $this->render('footer') ?>
 
-    <script src="css/js/jquery.min.js"></script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Simulate progress for demo purposes
+    const progressBar = document.querySelector('.progress-bar');
+    let progress = 0;
+    const progressInterval = setInterval(function() {
+        progress += Math.random() * 10;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(progressInterval);
+        }
+        progressBar.style.width = progress + '%';
+    }, 300);
 
+    // Hide loader when page is fully loaded
+    window.addEventListener('load', function() {
+        // Ensure progress reaches 100%
+        progressBar.style.width = '100%';
+        
+        // Add small delay for smooth transition
+        setTimeout(function() {
+            const loader = document.getElementById('global-loader');
+            loader.classList.add('hidden');
+            
+            // Remove loader from DOM after animation completes
+            setTimeout(function() {
+                loader.style.display = 'none';
+            }, 500);
+        }, 500);
+    });
+    
+    // Fallback in case load event doesn't fire
+    setTimeout(function() {
+        const loader = document.getElementById('global-loader');
+        if (loader && !loader.classList.contains('hidden')) {
+            loader.classList.add('hidden');
+            setTimeout(function() {
+                loader.style.display = 'none';
+            }, 500);
+        }
+    }, 10000); // 10 second timeout as fallback
+});
+</script>
 
+<script src="css/js/jquery.min.js"></script>
 <script src="css/js/custom.js"></script>
 <!-- <script src="//code.tidio.co/qpa5p2flf07199dv09gjzyotq4cryhzd.js" async></script> -->
 
