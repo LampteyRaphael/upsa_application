@@ -1,0 +1,38 @@
+
+/application/
+# Yii2 basic application
+
+# runtime and vendor
+/vendor/
+/runtime/
+/web/assets/
+/node_modules/
+/bower_components/
+
+# environment and configs
+/.env
+/.env.local
+/.env.*.local
+/config/db.php
+/config/params-local.php
+/config/web-local.php
+/config/console-local.php
+
+# composer lock file (optional, usually tracked)
+/composer.lock
+
+# IDE & OS files
+/.idea/
+/.vscode/
+/nbproject/
+.DS_Store
+Thumbs.db
+
+# PHPUnit
+/phpunit.xml
+/phpunit.xml.dist
+/tests/_output/*
+/tests/_support/_generated/*
+/tests/_support/_envs/*
+/tests/_support/_data/*.db
+
