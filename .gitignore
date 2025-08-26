@@ -1,5 +1,7 @@
 
 /application/
+/images/
+/css/
 # Yii2 basic application
 
 # runtime and vendor
